@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCurrentSession } from "@/lib/auth";
-import prisma from "@/lib/prisma";
-import { logAuditEvent } from "@/lib/audit";
+import { getCurrentSession } from "../../lib/auth";
+import prisma from "../../lib/prisma";
+import { logAuditEvent } from "../../lib/audit";
 
 export const dynamic = "force-dynamic";
 

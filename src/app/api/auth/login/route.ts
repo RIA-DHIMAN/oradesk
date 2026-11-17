@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import prisma from "../../../../lib/prisma";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-import { getClientIp, parseDeviceLabel } from "@/lib/auth";
-import { logAuditEvent } from "@/lib/audit";
+import { getClientIp, parseDeviceLabel } from "../../../../lib/auth";
+import { logAuditEvent } from "../../../../lib/audit";
 
 export const dynamic = "force-dynamic";
 

@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import prisma from "../../../../lib/prisma";
 import bcrypt from "bcryptjs";
-import { getCurrentSession } from "@/lib/auth";
-import { logAuditEvent } from "@/lib/audit";
+import { getCurrentSession } from "../../../../lib/auth";
+import { logAuditEvent } from "../../../../lib/audit";
 
 export const dynamic = "force-dynamic";
 
