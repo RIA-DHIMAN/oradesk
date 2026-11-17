@@ -28,8 +28,12 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("🌱 Initializing OraDesk Web database...");
 
-  const adminLogin = process.env.SUPER_ADMIN_LOGIN || "admin";
-  const adminPass = process.env.SUPER_ADMIN_PASSWORD || "SuperAdmin@OraDesk2026";
+  const adminLogin = process.env.SUPER_ADMIN_LOGIN;
+  const adminPass = process.env.SUPER_ADMIN_PASSWORD;
+
+  if (!adminLogin || !adminPass) {
+    throw new Error("SUPER_ADMIN_LOGIN and SUPER_ADMIN_PASSWORD must be set before seeding.");
+  }
 
   const adminHash = await bcrypt.hash(adminPass, 10);
 
@@ -52,28 +56,8 @@ async function main() {
     },
   });
 
-  console.log(`✅ Super Admin configured!`);
+  console.log("✅ Super Admin configured!");
   console.log(`   Login ID: ${admin.loginId}`);
-  console.log(`   Passcode: ${admin.plainPasscode}`);
-
-  // Create a default doctor account for clinic testing
-  const docHash = await bcrypt.hash("DOC-778899", 10);
-  const doctor = await prisma.user.upsert({
-    where: { loginId: "DOC-101" },
-    update: {},
-    create: {
-      name: "Dr. Clinic Lead",
-      loginId: "DOC-101",
-      role: "DOCTOR",
-      plainPasscode: "DOC-778899",
-      passcodeHash: docHash,
-      isActive: true,
-    },
-  });
-
-  console.log(`✅ Sample Doctor account created:`);
-  console.log(`   Login ID: ${doctor.loginId}`);
-  console.log(`   Passcode: ${doctor.plainPasscode}`);
 
   // Initialize revision metadata
   await prisma.metadata.upsert({
