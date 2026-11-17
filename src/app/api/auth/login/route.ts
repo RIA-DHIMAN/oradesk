@@ -5,6 +5,8 @@ import crypto from "crypto";
 import { getClientIp, parseDeviceLabel } from "@/lib/auth";
 import { logAuditEvent } from "@/lib/audit";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   try {
     const { loginId, passcode } = await req.json();

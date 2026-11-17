@@ -4,6 +4,8 @@ import bcrypt from "bcryptjs";
 import { getCurrentSession } from "@/lib/auth";
 import { logAuditEvent } from "@/lib/audit";
 
+export const dynamic = "force-dynamic";
+
 // Require Super Admin role
 async function checkSuperAdmin() {
   const session = await getCurrentSession();

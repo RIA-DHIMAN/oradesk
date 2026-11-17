@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getCurrentSession } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 const ALLOWED_COLLECTIONS = new Set(["patients", "appointments", "lab", "settings"]);
 
 export async function PUT(

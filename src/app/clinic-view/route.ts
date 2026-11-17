@@ -3,6 +3,8 @@ import { getCurrentSession } from "@/lib/auth";
 import fs from "fs";
 import path from "path";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const session = await getCurrentSession();
   if (!session) {

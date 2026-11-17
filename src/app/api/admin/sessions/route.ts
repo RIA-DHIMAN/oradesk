@@ -3,6 +3,8 @@ import prisma from "@/lib/prisma";
 import { getCurrentSession } from "@/lib/auth";
 import { logAuditEvent } from "@/lib/audit";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const session = await getCurrentSession();
   if (!session || session.user.role !== "SUPER_ADMIN") {
