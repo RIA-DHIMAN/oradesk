@@ -188,7 +188,7 @@ export default function LoginPage() {
 
         <div style={{ marginTop: "24px", paddingTop: "18px", borderTop: "1px solid #e1efee", textAlign: "center" }}>
           <p style={{ fontSize: "13px", color: "#667085", margin: 0 }}>
-            Don't have credentials? Contact your clinic Super Admin to be issued an access ID and passcode.
+            Do not have credentials? Contact your clinic Super Admin to be issued an access ID and passcode.
           </p>
         </div>
       </div>

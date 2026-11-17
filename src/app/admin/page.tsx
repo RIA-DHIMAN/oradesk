@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
   Users,
@@ -132,7 +132,7 @@ export default function SuperAdminPage() {
   const [editPasscode, setEditPasscode] = useState("");
   const [editRole, setEditRole] = useState("");
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       setError("");
@@ -160,11 +160,11 @@ export default function SuperAdminPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   const handleGenerateCredentials = (roleType: string) => {
     const prefix = roleType === "DOCTOR" ? "DOC" : roleType === "RECEPTIONIST" ? "REC" : "STF";
