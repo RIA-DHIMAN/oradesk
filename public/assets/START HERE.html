@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OraDesk Setup Guide</title>
+<style>
+:root{--bg:#f7f7f8;--card:#ffffff;--ink:#051b1d;--muted:#3b5154;--teal:#00666b;--tint:#ddf1f1;--line:#dce6e6;--warn:#fcefd2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding:32px max(16px,env(safe-area-inset-left,0px))}
+main{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1{font-size:34px;line-height:1.15;margin:0}
+h2{font-size:22px;margin:0 0 10px;display:flex;align-items:center;gap:12px}
+h2 span{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--teal);color:#fff;font-size:17px;flex:none}
+p{margin:0 0 10px}
+.lead{color:var(--muted);font-size:19px}
+section{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 24px}
+ol,ul{margin:0;padding-left:24px}
+li{margin:6px 0}
+code{background:var(--tint);padding:2px 7px;border-radius:6px;font-size:16px;overflow-wrap:anywhere}
+.note{background:var(--warn);border-radius:14px;padding:14px 16px;margin-top:12px}
+.tip{background:var(--tint);border-radius:14px;padding:14px 16px;margin-top:12px}
+b{font-weight:700}
+</style>
+</head>
+<body>
+<main>
+<h1>OraDesk: setup guide for the clinic</h1>
+<p class="lead">OraDesk runs on this laptop. It needs no internet and no monthly payment. Follow steps 1 to 3 once. Then use the OraDesk icon on the desktop every day.</p>
+
+<section>
+<h2><span>1</span>Install Google Drive (free, for backups)</h2>
+<p>Do this first, so the installer finds Google Drive and keeps a second copy of every backup there.</p>
+<ol>
+<li>Open <code>google.com/drive/download</code> and install <b>Google Drive for desktop</b>.</li>
+<li>Sign in with the clinic's Google account.</li>
+<li>Turn on 2-step verification for that Google account.</li>
+</ol>
+<p class="tip">No Google Drive? You can skip this step. Then copy backups to a pen drive every week (step 5).</p>
+</section>
+
+<section>
+<h2><span>2</span>Install OraDesk</h2>
+<p><b>Windows:</b> double-click <code>Install OraDesk (Windows).bat</code>.</p>
+<p><b>Mac:</b> right-click <code>Install OraDesk (Mac).command</code> and choose <b>Open</b>.</p>
+<ol>
+<li>If Python is missing, the Windows installer installs it. This is free and takes a few minutes. On a Mac, install Python from <code>python.org/downloads</code> first.</li>
+<li>For a new clinic, press <b>Enter</b> when the installer asks about moving from another laptop.</li>
+<li>Press <b>Enter</b> to accept the Google Drive backup folder.</li>
+<li>OraDesk opens in the browser. An <b>OraDesk</b> icon appears on the desktop.</li>
+</ol>
+</section>
+
+<section>
+<h2><span>3</span>Create the password</h2>
+<ol>
+<li>Type a password with at least 12 characters, two times.</li>
+<li>Keep <b>Keep me signed in on this computer</b> ticked. The laptop then stays signed in.</li>
+<li>Write the password on paper and keep it in a locked drawer.</li>
+</ol>
+</section>
+
+<section>
+<h2><span>4</span>Daily use</h2>
+<ul>
+<li>OraDesk starts by itself when the laptop starts.</li>
+<li>Double-click the <b>OraDesk</b> icon on the desktop to open it.</li>
+<li>Press <b>Lock</b> at the top right only if other people use this laptop.</li>
+</ul>
+</section>
+
+<section>
+<h2><span>5</span>Backups</h2>
+<ul>
+<li>OraDesk saves a backup on the laptop every 30 minutes while you work. It keeps the last 14 days.</li>
+<li>It also copies each backup to the Google Drive folder <b>OraDesk Backups</b>. Google Drive keeps the last 60 days there.</li>
+<li>Once a week, open the <b>Today</b> screen. If a yellow bar shows, click <b>Download backup</b> and save the file to a pen drive.</li>
+</ul>
+<p class="note">Backup files hold patient records. Keep the pen drive locked away. Do not send backup files on WhatsApp or by email.</p>
+</section>
+
+<section>
+<h2><span>6</span>New laptop, or the laptop stops working</h2>
+<ol>
+<li>On the new laptop, do step 1 (Google Drive) and sign in with the same Google account.</li>
+<li>Run the installer (step 2).</li>
+<li>When it asks about moving from another laptop, open the Google Drive folder <b>OraDesk Backups</b>. Drag the newest file (<code>oradesk-YYYY-MM-DD.sqlite3</code>) into the installer window and press <b>Enter</b>.</li>
+<li>Sign in with the old password. All records are back.</li>
+</ol>
+</section>
+
+<section>
+<h2><span>7</span>Forgot the password</h2>
+<p><b>Windows:</b> press <b>Windows + R</b>, type <code>cmd</code> and press Enter. Then type these two lines, pressing Enter after each:</p>
+<p><code>cd %LOCALAPPDATA%\OraDesk</code><br><code>py -3 server.py --reset-password</code></p>
+<p><b>Mac:</b> open Terminal and type <code>cd ~/OraDesk && python3 server.py --reset-password</code></p>
+<p>Records stay. Every computer must sign in again with the new password.</p>
+</section>
+
+<section>
+<h2><span>8</span>Keep the laptop safe</h2>
+<ul>
+<li>Set a Windows or Mac login password on the laptop.</li>
+<li>Turn on disk encryption: <b>BitLocker</b> or <b>Device encryption</b> on Windows, <b>FileVault</b> on a Mac.</li>
+<li>Do not lend the laptop to people outside the clinic.</li>
+</ul>
+</section>
+
+<p class="lead">OraDesk by NLG.</p>
+</main>
+</body>
+</html>

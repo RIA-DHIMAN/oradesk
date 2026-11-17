@@ -1,0 +1,62 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String     @id @default(uuid())
+  loginId       String     @unique   // e.g. "DOC-101", "REC-01" or username
+  name          String
+  role          String     @default("STAFF") // SUPER_ADMIN, DOCTOR, RECEPTIONIST, STAFF
+  plainPasscode String?    // Stored so Super Admin can view & provide credentials to clients/staff
+  passcodeHash  String     // Bcrypt hash for verification
+  isActive      Boolean    @default(true) // Instant enable/disable switch by Admin
+  lastIp        String?    // Latest IP address
+  lastLogin     DateTime?  // Latest login time
+  sessions      Session[]
+  auditLogs     AuditLog[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ipAddress    String?
+  userAgent    String?  @db.Text
+  deviceLabel  String?  // Parsed readable device, e.g. "Chrome on Windows"
+  lastActive   DateTime @default(now())
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String   // LOGIN, LOGOUT, FAILED_LOGIN, REVOKE_SESSION, CREATE_USER, UPDATE_PASSWORD, TOGGLE_STATUS
+  ipAddress String?
+  device    String?
+  details   String?  @db.Text
+  timestamp DateTime @default(now())
+}
+
+model Document {
+  collection String   // patients, appointments, lab, settings
+  id         String
+  body       String   @db.LongText
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@id([collection, id])
+}
+
+model Metadata {
+  key   String @id
+  value String
+}
